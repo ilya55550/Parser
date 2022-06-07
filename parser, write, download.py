@@ -9,6 +9,7 @@ headers = {
 
 
 def download_image(url_image):
+    """Скачивание изображения товара"""
     response = requests.get(url_image, stream=True)
     with open('/home/ilya/Рабочий стол/image/' + url_image.split('/')[-1], 'wb') as file:
         for value in response.iter_content(1024 * 1024):
@@ -38,8 +39,9 @@ def generator_link_products():
 
 
 def generator_card_product():
+    count = 0
     for link_product in generator_link_products():
-        sleep(0.5)
+        # sleep(0.5)
         response = requests.get(link_product, headers=headers)
         bsoup = BeautifulSoup(response.text, 'lxml')
         data_product = bsoup.find('div', class_='card mt-4 my-4')
@@ -48,10 +50,13 @@ def generator_card_product():
         description = data_product.find('p', class_='card-text').text
         image_url = 'https://scrapingclub.com/' + data_product.find('img', class_='card-img-top img-fluid').get('src')
         download_image(image_url)
+        print(count)
+        count += 1
         yield title, price, description, image_url
 
 
 def writer(func):
+    """Запись в файл формата xlsx"""
     with xlsxwriter.Workbook('/home/ilya/Рабочий стол/data.xlsx') as file:
         page = file.add_worksheet('товар')
 
