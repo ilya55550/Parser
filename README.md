@@ -7,14 +7,9 @@
 
 **Стек:**
 - Python
-  Асинхронный парсер:
-- aiohttp
-- async
-  Синхронный парсер:
-- requests
-  Модули для работы с html тегами:
-- beautifulsoup4
-- lxml
+- aiohttp, async (Ассинхронный)
+- requests (Синхронный)
+- beautifulsoup4, lxml (Модули для работы с html тегами)
 
 
 ## Скриншоты
